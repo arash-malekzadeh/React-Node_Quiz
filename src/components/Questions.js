@@ -1,18 +1,28 @@
-import React, { useState } from "react";
-import data from "./database/data";
+import React, { useEffect, useState } from "react";
+
+import { useFetchQuestion } from "../hooks/FetchQuestion";
+import { useSelector } from "react-redux";
 
 export default function Questions() {
   const [checkes, setchecked] = useState(undefined);
-  const question = data[0];
+  const [{ isloading, apiData, serverError }] = useFetchQuestion();
+  const questions = useSelector(
+    (state) => state.questions.queue[state.questions.trace]
+  );
+
+  useEffect(() => {
+    console.log(questions);
+  });
+
   function onSelect() {
-    console.log("radio button change");
+    //console.log("radio button change");
   }
   return (
     <div className="questions">
-      <h2 className="text-light">{question.question}</h2>
+      <h2 className="text-light">{questions?.question}</h2>
 
-      <ul key={question.id}>
-        {question.options.map((q, i) => (
+      <ul key={questions?.id}>
+        {questions?.options.map((q, i) => (
           <li key={i}>
             <input
               type="radio"
