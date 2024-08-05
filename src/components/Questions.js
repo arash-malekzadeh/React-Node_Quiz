@@ -11,7 +11,7 @@ export default function Questions() {
   );
 
   useEffect(() => {
-    console.log(questions);
+    // console.log(questions);
   });
 
   function onSelect() {
